@@ -1,0 +1,27 @@
+// BFirst Search with pathfinding element
+
+
+//GO TO LITERALLY FIND CLOSEST PATH TO THE TARGET, ONLY IF TARGET IS REVEALED (ON SCREEN)
+public static boolean goTo(char target, char[] toAvoid, boolean onlyReveal) {
+        // initializes an array to remember predecessors during BFS
+        int prec[][] = new int[height][width];
+        for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++)
+                prec[y][x] = -1;
+            
+        // initializes a queue to perform a BFS
+        LinkedList<Coords> queue = new LinkedList<Coords>();
+        queue.add(c);
+        // perform a BFS, avoid characters contained by 'toAvoid', //TOAVOID IS LITERALLY A COLLISION METHOD
+        // until character 'target is found'
+        while(queue.size() > 0 && map(queue.element()) != target) {
+            Coords[] neighbours = queue.remove().neighbours();
+            for (int i = 0; i < neighbours.length; i++) {
+                Coords n = neighbours[i];
+                if (isInMap(n) && !mustBeAvoided(n, toAvoid) && prec[n.Y][n.X] == -1) {
+                    prec[n.Y][n.X] = (i+2) % 4;
+                    queue.add(n);
+                }
+            }
+        }
+    
