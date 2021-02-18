@@ -1,0 +1,31 @@
+REMPLISSAGE PAR DIFFUSION WITH COMMENTS :
+
+
+
+//BOARD IS THE BOARD GAME, VISITED THE NEIGHBOORD THAT WHERE VISITED, STACK THE COORDINATES OF ELEMENTS WE WANT, CHAR IS THE ELEMENT
+
+public static int floodFill(char[][] board, boolean[][] visited, Stack<coor> myStack, char what) {
+
+        int result = 0;
+
+        while (myStack.size() > 0) {
+
+            coor c = myStack.pop();
+
+            if (board[c.y][c.x] != what || visited[c.y][c.x]) continue;
+            
+            visited[c.y][c.x] = true;
+            
+            result++;
+            if (c.y+1 < board.length && !visited[c.y+1][c.x]) myStack.push(new coor(c.x, c.y+1));
+            if (c.y-1 >= 0 && !visited[c.y-1][c.x]) myStack.push(new coor(c.x, c.y-1));
+            if (c.x+1 < board[0].length && !visited[c.y][c.x+1]) myStack.push(new coor(c.x+1, c.y));
+            if (c.x-1 >= 0 && !visited[c.y][c.x-1]) myStack.push(new coor(c.x-1, c.y));
+        }
+        return result;     
+        
+        //RESULT GIVE THE LARGEST DIFFUSED ELEMENTS ( FOR .OOO.
+                                                          .O...
+                                                          ......
+                                                          OOOOO.) // IT WILL GIVES 4 FOR THE FIRST DIFFUSION, AND 5 FOR THE SECOND ONE
+    } 
